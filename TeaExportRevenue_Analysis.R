@@ -6,12 +6,13 @@
 
 ####Using data from 2007
 
+# loading the libraries
 library(forecast)
 library(fUnitRoots)
 library(lmtest)
 library(readxl)
 
-tea <- read_xlsx("TeaExport_Dataset.xlsx")
+tea <- read_xlsx("TeaExportRevenue_Dataset.xlsx")
 
 tea_data <- tea$tea_export_revenue
 tea_data
@@ -68,6 +69,7 @@ Pacf(D12D1logTr, 100)
 
 adfTest(D12D1logTr)
 
+# model fitting 
 
 fit1 = Arima(sqTr, order = c(2, 0, 0), seasonal = c(0, 1, 1))
 fit1
@@ -225,6 +227,8 @@ Pacf(D12D1sqTr_cov, 100)
 
 adfTest(D12D1sqTr_cov)
 
+# model fitting
+
 fit1_cov = Arima(sqTr_cov, order = c(2, 0, 0), seasonal = c(0, 1, 1))
 fit1_cov
 summary(fit1_cov)
@@ -240,8 +244,6 @@ coeftest(fit2_cov)
 Box.test(residuals(fit1_cov), lag = 24, type = "Ljung")
 
 Box.test(residuals(fit2_cov), lag = 24, type = "Ljung")
-
-
 
 # developing models further 
 
@@ -310,8 +312,6 @@ summary(fit10_cov)
 coeftest(fit10_cov)
 
 Box.test(residuals(fit10_cov), lag = 24, type = "Ljung")
-
-
 
 # forecasting 
 
